@@ -1,4 +1,5 @@
-use std::{env, fs, process::Command};
+use std::{env, fs};
+
 
 fn main() {
     println!("OS     : {}", std::env::consts::OS);
@@ -18,15 +19,27 @@ fn main() {
         }
     }
 
-    let pwd = env::current_dir().expect("Failed to get current dir");
-    
-    unsafe {
-        env::set_var("XDG_CONFIG_HOME", pwd.join("config"));
-        env::set_var("XDG_DATA_HOME",   pwd.join("local/share"));
-        env::set_var("XDG_STATE_HOME",  pwd.join("local/state"));
-        env::set_var("XDG_CACHE_HOME",  pwd.join("local/cache"));
-    }
 
-    let args: Vec<_> = env::args().skip(1).collect();
-    Command::new("nvim").args(args).status().unwrap();
+    let mut path = env::home_dir().unwrap().join(".0xC");
+    path.push("local");
+    path.push("config");
+
+    fs::create_dir_all(&path).unwrap();
+
+    dbg!(path);
+
+    // symlink(
+    //     pwd.join("target/debug/_0xC"), 
+    //     Path::new(&env::var("HOME").unwrap().join(".local/"))
+    //     ).unwrap();
+    
+    // unsafe {
+    //     env::set_var("XDG_CONFIG_HOME", pwd.join("config"));
+    //     env::set_var("XDG_DATA_HOME",   pwd.join("local/share"));
+    //     env::set_var("XDG_STATE_HOME",  pwd.join("local/state"));
+    //     env::set_var("XDG_CACHE_HOME",  pwd.join("local/cache"));
+    // }
+    //
+    // let args: Vec<_> = env::args().skip(1).collect();
+    // Command::new("nvim").args(args).status().unwrap();
 }
