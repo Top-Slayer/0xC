@@ -1,31 +1,33 @@
-use std::{env, fs};
-
+use std::fs;
+use std::path::PathBuf;
 
 fn main() {
-    println!("OS     : {}", std::env::consts::OS);
-    println!("ARCH   : {}", std::env::consts::ARCH);
-    println!("FAMILY : {}", std::env::consts::FAMILY);
+    use std::env::consts::{ARCH, FAMILY, OS};
 
-    if std::env::consts::OS == "linux" {
+    println!("OS   : {OS}");
+    println!("ARCH : {ARCH}");
+    println!("FAMILY: {FAMILY}");
+
+    if OS == "linux" {
         if let Ok(data) = fs::read_to_string("/etc/os-release") {
             for line in data.lines() {
-                if line.starts_with("ID=") {
-                    println!("Distro ID: {}", line.trim_start_matches("ID=").trim_matches('"'));
+                if let Some(id) = line.strip_prefix("ID=").map(|s| s.trim_matches('"')) {
+                    println!("Distro ID: {id}");
                 }
-                if line.starts_with("NAME=") {
-                    println!("Distro Name: {}", line.trim_start_matches("NAME=").trim_matches('"'));
+                if let Some(name) = line.strip_prefix("NAME=").map(|s| s.trim_matches('"')) {
+                    println!("Distro Name: {name}");
                 }
             }
         }
     }
 
+    let mut path: PathBuf = dirs::home_dir()
+        .expect("Failed to get home directory")  // or handle properly
+        .join(".0xC")
+        .join("local")
+        .join("config");
 
-    let mut path = env::home_dir().unwrap().join(".0xC");
-    path.push("local");
-    path.push("config");
-
-    fs::create_dir_all(&path).unwrap();
-
+    fs::create_dir_all(&path).expect("Failed to create config directories");
     dbg!(path);
 
     // symlink(
