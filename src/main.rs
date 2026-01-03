@@ -34,7 +34,7 @@ fn main() {
     //     pwd.join("target/debug/_0xC"), 
     //     Path::new(&env::var("HOME").unwrap().join(".local/"))
     //     ).unwrap();
-    
+
     // unsafe {
     //     env::set_var("XDG_CONFIG_HOME", pwd.join("config"));
     //     env::set_var("XDG_DATA_HOME",   pwd.join("local/share"));
