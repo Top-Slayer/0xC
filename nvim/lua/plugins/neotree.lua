@@ -15,7 +15,21 @@ return {
             close_if_last_window = true,
             window = {
                 position = "left",
-                auto_expand_width = true,
+                auto_expand_width = false,
+                mappings = {
+                    ["q"] = false,
+                    ["h"] = "close_node",
+                    ["l"] = "open",
+                    ["C"] = "close_all_nodes",
+                    ["R"] = "refresh",
+                    ["Y"] = {
+                        function(state)
+                            local node = state.tree:get_node()
+                            vim.fn.setreg("+", node.path)
+                            print("Copied absolute path: " .. node.path)
+                        end
+                    },
+                },
             },
             filesystem = {
                 follow_current_file = {

@@ -25,8 +25,8 @@ return {
                 "ts_ls",          -- TypeScript/JavaScript
                 "pyright",        -- Python
                 "rust_analyzer",  -- Rust
+                "bashls",
                 "gopls",          -- Go
-                -- Add more as needed: "clangd", "html", "cssls", etc.
             },
             automatic_installation = true,
         },
@@ -79,6 +79,24 @@ return {
                                     workspace = {
                                         library = vim.api.nvim_get_runtime_file("", true),
                                         checkThirdParty = false,
+                                    },
+                                },
+                            },
+                        })
+                    end,
+
+                    ["pyright"] = function()
+                        lspconfig.pyright.setup({
+                            capabilities = capabilities,
+                            on_attach = on_attach,
+                            root_dir = require("lspconfig.util").root_pattern(".git", "pyproject.toml", "tagwizard_monorepo"),
+                            settings = {
+                                python = {
+                                    analysis = {
+                                        autoSearchPaths = true,
+                                        useLibraryCodeForTypes = true,
+                                        typeCheckingMode = "basic",
+                                        extraPaths = { "./backend/common" },  -- relative to root_dir
                                     },
                                 },
                             },
