@@ -8,8 +8,8 @@ return {
         },
         event = "VeryLazy",  -- Load after startup
         keys = {
-            { "<C-[>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
-            { "<C-]>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
+            { "<M-j>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
+            { "<M-k>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
 
             {
                 "<leader>bd", function()

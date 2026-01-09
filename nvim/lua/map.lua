@@ -3,6 +3,9 @@ vim.g.maplocalleader = "\\"
 
 vim.keymap.set("n", "<C-e>", vim.cmd.Explore)
 
+-- Normal mode mapping from macos -> linux
+vim.keymap.set('n', 'D', 'M', { noremap = true, silent = true })
+
 vim.keymap.set("n", "<C-h>", "<C-w>h")
 vim.keymap.set("n", "<C-j>", "<C-w>j")
 vim.keymap.set("n", "<C-k>", "<C-w>k")
