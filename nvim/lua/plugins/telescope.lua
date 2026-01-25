@@ -8,10 +8,9 @@ return {
         },
         cmd = "Telescope",  -- Lazy-load on command
         keys = {
-            -- Common keymaps (feel free to change <leader>)
             { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
             { "<leader>fg", "<cmd>Telescope live_grep<cr>", desc = "Live Grep (search text)" },
-            { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
+            { "<leader>fb",  function() require("telescope.builtin").buffers({ sort_lastused = true, ignore_current_buffer = true }) end, desc = "Buffers (MRU)" },
             { "<leader>fh", "<cmd>Telescope help_tags<cr>", desc = "Help Tags" },
             { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent Files" },
             { "<leader>fk", "<cmd>Telescope keymaps<cr>", desc = "Keymaps" },

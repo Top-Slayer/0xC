@@ -1,0 +1,2 @@
+- in searching input in neo-tree should be enter int normal mode.
+- fix tagwizard_monorepo can not defination to common share folder.
