@@ -57,6 +57,25 @@ return {
                 bufmap("n", "<leader>ds", vim.lsp.buf.document_symbol, "Document Symbols")
             end
 
+            vim.diagnostic.config({
+                virtual_text = { prefix = "●" },
+                signs = true,
+                underline = true,
+                update_in_insert = false,
+                severity_sort = true,
+                float = {
+                    border = "rounded",
+                    source = "always",
+                },
+            })
+
+            -- Diagnostics keymaps
+            vim.keymap.set("n", "gl", vim.diagnostic.open_float)
+            vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
+            vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
+            vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
+
+
             -- Setup all installed servers automatically
             require("mason-lspconfig").setup({
                 handlers = {
