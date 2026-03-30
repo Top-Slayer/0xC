@@ -8,8 +8,10 @@ return {
         },
         event = "VeryLazy",  -- Load after startup
         keys = {
-            { "<M-j>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
-            { "<M-k>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
+            -- { "<M-j>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
+            -- { "<M-k>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
+            { "H", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer", mode = "n" },
+            { "L", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer", mode = "n" },
 
             {
                 "<leader>bd", function()
@@ -18,7 +20,6 @@ return {
                 desc = "Delete Buffer",
             },
             { "<leader>bc", "<cmd>BufferLinePickClose<cr>", desc = "Pick Close Buffer" },
-
             { "<leader>bp", "<cmd>BufferLineTogglePin<cr>", desc = "Pin Buffer" },
             { "<leader>bP", "<cmd>BufferLineGroupClose ungrouped<cr>", desc = "Delete Non-Pinned" },
             { "<leader>bo", "<cmd>BufferLineCloseOthers<cr>", desc = "Close Others" },
