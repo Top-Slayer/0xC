@@ -27,6 +27,8 @@ return {
                 "rust_analyzer",  -- Rust
                 "bashls",
                 "gopls",          -- Go
+                "dart-debug-adapter",
+                "dcm"
             },
             automatic_installation = true,
         },
@@ -75,6 +77,21 @@ return {
             vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
             vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
 
+            lspconfig.rust_analyzer.setup({
+                settings = {
+                    ["rust-analyzer"] ={
+                        cargo = {
+                            allFeatures = false,
+                        },
+                        procMacro = {
+                            enable = false,
+                        },
+                        checkOnSave = {
+                            command = "check",
+                        },
+                    }
+                }
+            })
 
             -- Setup all installed servers automatically
             require("mason-lspconfig").setup({

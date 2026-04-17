@@ -1,7 +1,8 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
-vim.keymap.set("n", "<C-e>", vim.cmd.Explore)
+vim.keymap.set("n", "<C-e>", vim.cmd.Explore, { desc = "Open explorer" })
+vim.keymap.set("n", "<leader>n", ":enew<CR>", { desc = "New empty buffer" })
 
 -- Normal mode mapping from macos -> linux
 vim.keymap.set('n', 'D', 'M', { noremap = true, silent = true })
