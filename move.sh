@@ -60,5 +60,27 @@ if [ ! -d ~/.config/tmux/plugins/tpm ]; then
     git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
 fi
 
-cp .gitconfig $HOME
+# Git config
+if command -v delta >/dev/null 2>&1; then
+    echo "Found delta command"
+
+    git config --global core.pager delta
+
+    git config --global interactive.diffFilter 'delta --color-only'
+
+    git config --global delta.hyperlinks true
+    git config --global delta.hyperlinks-file-link-format "nvim://{path}:{line}"
+    git config --global delta.line-number true
+    git config --global delta.navigate true
+    git config --global delta.dark true
+    git config --global delta.side-by-side true
+    git config --global delta.true-color always
+
+    git config --global merge.conflictStyle zdiff3
+
+    git config --global color.ui always
+    git config --global color.status always
+fi
+
+# Postgre config
 cp .psqlrc $HOME

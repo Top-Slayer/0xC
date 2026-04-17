@@ -1,0 +1,7 @@
+\pset format aligned
+\x off
+\pset pager on
+\pset expanded off
+\pset linestyle unicode
+\pset null '(null)'
+\timing on
