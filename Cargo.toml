@@ -5,4 +5,12 @@ edition = "2024"
 
 [dependencies]
 dirs = "5"
+libc = "0.2.184"
+notify = "6.1.1"
+nvim-rs = { version = "0.9.2", features = ["use_tokio"] }
 serde = { version = "1.0.228", features = ["derive"] }
+tokio = { version = "1.52.0", features = ["full"] }
+
+[[bin]]
+name = "nvim_opener"
+path = "src/bin/nvim_opener/main.rs"
