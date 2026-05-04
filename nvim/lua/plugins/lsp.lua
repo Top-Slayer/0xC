@@ -77,22 +77,6 @@ return {
             vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
             vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
 
-            lspconfig.rust_analyzer.setup({
-                settings = {
-                    ["rust-analyzer"] ={
-                        cargo = {
-                            allFeatures = false,
-                        },
-                        procMacro = {
-                            enable = false,
-                        },
-                        checkOnSave = {
-                            command = "check",
-                        },
-                    }
-                }
-            })
-
             -- Setup all installed servers automatically
             require("mason-lspconfig").setup({
                 handlers = {
@@ -101,6 +85,26 @@ return {
                         lspconfig[server_name].setup({
                             capabilities = capabilities,
                             on_attach = on_attach,
+                        })
+                    end,
+
+                    ["rust_analyzer"] = function()
+                        lspconfig.rust_analyzer.setup({
+                            capabilities = capabilities,
+                            on_attach = on_attach,
+                            settings = {
+                                ["rust-analyzer"] = {
+                                    cargo = {
+                                        allFeatures = true,
+                                    },
+                                    procMacro = {
+                                        enable = true,
+                                    },
+                                    checkOnSave = {
+                                        command = "clippy",
+                                    },
+                                },
+                            },
                         })
                     end,
 
