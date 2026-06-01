@@ -77,73 +77,79 @@ return {
             vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
             vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
 
-            -- Setup all installed servers automatically
-            require("mason-lspconfig").setup({
-                handlers = {
-                    -- Default handler for all servers
-                    function(server_name)
-                        lspconfig[server_name].setup({
-                            capabilities = capabilities,
-                            on_attach = on_attach,
-                        })
-                    end,
-
-                    ["rust_analyzer"] = function()
-                        lspconfig.rust_analyzer.setup({
-                            capabilities = capabilities,
-                            on_attach = on_attach,
-                            settings = {
-                                ["rust-analyzer"] = {
-                                    cargo = {
-                                        allFeatures = true,
-                                    },
-                                    procMacro = {
-                                        enable = true,
-                                    },
-                                    checkOnSave = {
-                                        command = "clippy",
-                                    },
-                                },
-                            },
-                        })
-                    end,
-
-                    -- Custom handler for lua_ls
-                    ["lua_ls"] = function()
-                        lspconfig.lua_ls.setup({
-                            capabilities = capabilities,
-                            on_attach = on_attach,
-                            settings = {
-                                Lua = {
-                                    diagnostics = { globals = { "vim" } },
-                                    workspace = {
-                                        library = vim.api.nvim_get_runtime_file("", true),
-                                        checkThirdParty = false,
-                                    },
-                                },
-                            },
-                        })
-                    end,
-
-                    ["pyright"] = function()
-                        lspconfig.pyright.setup({
-                            capabilities = capabilities,
-                            on_attach = on_attach,
-                            root_dir = require("lspconfig.util").root_pattern(".git", "pyproject.toml", "tagwizard_monorepo"),
-                            settings = {
-                                python = {
-                                    analysis = {
-                                        autoSearchPaths = true,
-                                        useLibraryCodeForTypes = true,
-                                        typeCheckingMode = "basic",
-                                        extraPaths = { "./backend/common" },  -- relative to root_dir
-                                    },
-                                },
-                            },
-                        })
-                    end,
-                },
+            vim.keymap.set("n", "gr", function()
+                require("telescope.builtin").lsp_references()
+            end, {
+                desc = "Goto References",
             })
-        end,
-    },
+
+        -- Setup all installed servers automatically
+        require("mason-lspconfig").setup({
+            handlers = {
+                -- Default handler for all servers
+                function(server_name)
+                    lspconfig[server_name].setup({
+                        capabilities = capabilities,
+                        on_attach = on_attach,
+                    })
+                end,
+
+                ["rust_analyzer"] = function()
+                    lspconfig.rust_analyzer.setup({
+                        capabilities = capabilities,
+                        on_attach = on_attach,
+                        settings = {
+                            ["rust-analyzer"] = {
+                                cargo = {
+                                    allFeatures = true,
+                                },
+                                procMacro = {
+                                    enable = true,
+                                },
+                                checkOnSave = {
+                                    command = "clippy",
+                                },
+                            },
+                        },
+                    })
+                end,
+
+                -- Custom handler for lua_ls
+                ["lua_ls"] = function()
+                    lspconfig.lua_ls.setup({
+                        capabilities = capabilities,
+                        on_attach = on_attach,
+                        settings = {
+                            Lua = {
+                                diagnostics = { globals = { "vim" } },
+                                workspace = {
+                                    library = vim.api.nvim_get_runtime_file("", true),
+                                    checkThirdParty = false,
+                                },
+                            },
+                        },
+                    })
+                end,
+
+                ["pyright"] = function()
+                    lspconfig.pyright.setup({
+                        capabilities = capabilities,
+                        on_attach = on_attach,
+                        root_dir = require("lspconfig.util").root_pattern(".git", "pyproject.toml", "tagwizard_monorepo"),
+                        settings = {
+                            python = {
+                                analysis = {
+                                    autoSearchPaths = true,
+                                    useLibraryCodeForTypes = true,
+                                    typeCheckingMode = "basic",
+                                    extraPaths = { "./backend/common" },  -- relative to root_dir
+                                },
+                            },
+                        },
+                    })
+                end,
+            },
+        })
+    end,
+},
 }
